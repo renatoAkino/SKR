@@ -16,23 +16,12 @@ router.get('/', (req, res, next) => {
         bulding: building
     })*/
 
-    mysql.getConnection((err, connection) => {
-        if(err) throw err
-        console.log(`connected as id ${connection.threadId}`)
+    getBuildings().then(function(buildings){
+        res.status(200).send(buildings)
+    })
         
-        connection.query('SELECT * FROM buildings',
-         (error, result) => {
-            connection.release()
-
-            if(!error){
-                const response = row;
-                return res.status(200).send(response);
-            }
-
-            
-        })
-    });
 });
+
 
 router.post('/', (req, res, next) => {
     res.status(201).send({
@@ -40,10 +29,49 @@ router.post('/', (req, res, next) => {
     })
 });
 
-router.get('/:id_produto', (req, res, next) => {
-    res.status(200).send({
-        mensagem: 'Teste individual'
+router.get('/:idBuilding', (req, res, next) => {
+    const id = req.params.idBuilding;
+    getImage(id).then(function(images){
+        res.status(200).send(images)
     })
 })
+
+
+function getBuildings(){
+    return new Promise(function(resolve, reject){
+        mysql.getConnection((err, connection) => {
+            if(err) throw err
+            console.log(`connected as id ${connection.threadId}`)
+            connection.query('SELECT * FROM buildings',
+             (error, result, fields) => {
+                connection.release()    
+                if(!error){
+                    resolve(result)
+                    
+                }
+                
+            })
+    
+    })
+})
+}
+
+function getImage(idBuilding){
+    return new Promise(function(resolve, reject){        
+        mysql.getConnection((err, connection) => {
+            if(err) throw err
+            connection.query('SELECT * FROM images WHERE idBuilding = ?',[idBuilding],
+             (error, result, fields) => {
+                connection.release()    
+                if(!error){
+                    resolve(result)
+                    
+                }
+                
+            })
+    
+        })
+    })
+}
 
 module.exports = router
