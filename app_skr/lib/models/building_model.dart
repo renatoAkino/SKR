@@ -1,6 +1,6 @@
 
 
-class buildingModel {
+class BuildingModel {
   int idBuilding;
   String titleBuilding;
   String typeBuilding;
@@ -8,8 +8,9 @@ class buildingModel {
   String categoryBuilding;
   String lATbuilding;
   String lONGbuilding;
+  List<dynamic> images;
 
-  buildingModel(
+  BuildingModel(
       {this.idBuilding,
         this.titleBuilding,
         this.typeBuilding,
@@ -18,7 +19,7 @@ class buildingModel {
         this.lATbuilding,
         this.lONGbuilding});
 
-  buildingModel.fromJson(Map<String, dynamic> json) {
+  BuildingModel.fromJson(Map<String, dynamic> json) {
     idBuilding = json['idBuilding'];
     titleBuilding = json['titleBuilding'];
     typeBuilding = json['typeBuilding'];
