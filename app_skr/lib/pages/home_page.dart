@@ -131,23 +131,30 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  filterBarWidget() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Column(
-          children: [
-              Row(
-              children: [
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: _typeFilter == 'commercial' ? Theme.of(context).primaryColor : Colors.white,
-                          onPrimary: _typeFilter == 'commercial' ? Colors.white : Theme.of(context).primaryColor,
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18)
-                          ),
-                          side: BorderSide(color: Theme.of(context).primaryColor)
+  Widget filterBarWidget(){
+    return Padding(
+      padding: EdgeInsets.only(top: 8, bottom: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+
+          Expanded(
+            child: Container(
+              height: 32,
+              child: Stack(
+                children: [
+
+                  ListView(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    children: [
+
+                      SizedBox(
+                        width: 24,
                       ),
-                      onPressed: (){
+                      GestureDetector(
+                        child: buildFilter("Comercial", _typeFilter == 'commercial' ? Colors.black12 : Colors.white),
+                        onTap: (){
                           if(_typeFilter == 'commercial'){
                             setState(() {
                               _typeFilter = "any";
@@ -163,103 +170,151 @@ class _HomePageState extends State<HomePage> {
                             });
                             controller.changeFilter(_categoryFilter, _typeFilter);
                           }
-                      },
-                      child: Text("Comercial".toUpperCase(),),
-                  ),
-                SizedBox(width: 10),
-                  ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: _typeFilter == 'residential' ? Theme.of(context).primaryColor : Colors.white,
-                      onPrimary: _typeFilter == 'residential' ? Colors.white : Theme.of(context).primaryColor,
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(18)
+                        }
                       ),
-                      side: BorderSide(color: Theme.of(context).primaryColor)
-                  ),
-                  onPressed: (){
-                    if(_typeFilter == 'residential'){
-                      setState(() {
-                        _typeFilter = "any";
-                      });
-                      if(_categoryFilter == "any" && _typeFilter == "any"){
-                        controller.init();
-                      }else{
-                        controller.changeFilter(_categoryFilter, _typeFilter);
-                      }
-                    }else{
-                      setState(() {
-                        _typeFilter = 'residential';
-                      });
-                      controller.changeFilter(_categoryFilter, _typeFilter);
-                    }
-                  },
-                  child: Text("Residencial".toUpperCase(),),
-                ),
-                SizedBox(width: 10),
-                  ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: _categoryFilter == 'realise' ? Theme.of(context).primaryColor : Colors.white,
-                      onPrimary: _categoryFilter == 'realise' ? Colors.white : Theme.of(context).primaryColor,
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(18)
+                      GestureDetector(
+                        child: buildFilter("Residencial", _typeFilter == 'residential' ? Colors.black12 : Colors.white),
+                        onTap: (){
+                          if(_typeFilter == 'residential'){
+                            setState(() {
+                              _typeFilter = "any";
+                            });
+                            if(_categoryFilter == "any" && _typeFilter == "any"){
+                              controller.init();
+                            }else{
+                              controller.changeFilter(_categoryFilter, _typeFilter);
+                            }
+                          }else{
+                            setState(() {
+                              _typeFilter = 'residential';
+                            });
+                            controller.changeFilter(_categoryFilter, _typeFilter);
+                          }
+                        },
                       ),
-                      side: BorderSide(color: Theme.of(context).primaryColor)
-                  ),
-                  onPressed: (){
-                    if(_categoryFilter == 'realise'){
-                      setState(() {
-                        _categoryFilter = "any";
-                      });
-                      if(_categoryFilter == "any" && _typeFilter == "any"){
-                        controller.init();
-                      }else{
-                        controller.changeFilter(_categoryFilter, _typeFilter);
-                      }
-                    }else{
-                      setState(() {
-                        _categoryFilter = 'realise';
-                      });
-                      controller.changeFilter(_categoryFilter, _typeFilter);
-                    }
+                      GestureDetector(
+                        child: buildFilter("Lançamentos", _categoryFilter == 'realise' ? Colors.black12 : Colors.white),
+                        onTap: (){
+                          if(_categoryFilter == 'realise'){
+                            setState(() {
+                              _categoryFilter = "any";
+                            });
+                            if(_categoryFilter == "any" && _typeFilter == "any"){
+                              controller.init();
+                            }else{
+                              controller.changeFilter(_categoryFilter, _typeFilter);
+                            }
+                          }else{
+                            setState(() {
+                              _categoryFilter = 'realise';
+                            });
+                            controller.changeFilter(_categoryFilter, _typeFilter);
+                          }
 
-                  },
-                  child: Text("Lançamentos".toUpperCase(),),
-                ),
-                SizedBox(width: 10),
-                  ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: _categoryFilter == 'conclude' ? Theme.of(context).primaryColor : Colors.white,
-                      onPrimary: _categoryFilter == 'conclude' ? Colors.white : Theme.of(context).primaryColor,
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(18)
+                        },
                       ),
-                      side: BorderSide(color: Theme.of(context).primaryColor)
+                      GestureDetector(
+                        child: buildFilter("Entregues", _categoryFilter == 'conclude' ? Colors.black12 : Colors.white),
+                        onTap: (){
+                          if(_categoryFilter == 'conclude'){
+                            setState(() {
+                              _categoryFilter = "any";
+                              print(_categoryFilter + "  " + _typeFilter);
+                            });
+                            if(_categoryFilter == "any" && _typeFilter == "any"){
+                              controller.init();
+                            }else{
+                              controller.changeFilter(_categoryFilter, _typeFilter);
+                            }
+                          }else{
+                            setState(() {
+                              _categoryFilter = 'conclude';
+                            });
+                            controller.changeFilter(_categoryFilter, _typeFilter);
+                          }
+                        },
+                      ),
+
+
+
+
+                      SizedBox(
+                        width: 8,
+                      ),
+
+                    ],
                   ),
-                  onPressed: (){
-                    if(_categoryFilter == 'conclude'){
-                      setState(() {
-                        _categoryFilter = "any";
-                        print(_categoryFilter + "  " + _typeFilter);
-                      });
-                      if(_categoryFilter == "any" && _typeFilter == "any"){
-                        controller.init();
-                      }else{
-                        controller.changeFilter(_categoryFilter, _typeFilter);
-                      }
-                    }else{
-                      setState(() {
-                        _categoryFilter = 'conclude';
-                      });
-                      controller.changeFilter(_categoryFilter, _typeFilter);
-                    }
-                  },
-                  child: Text("Entregues".toUpperCase(),),
-                ),
-                  ],
+
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      width: 28,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.centerRight,
+                          end: Alignment.centerLeft,
+                          colors: [
+                            Theme.of(context).scaffoldBackgroundColor,
+                            Theme.of(context).scaffoldBackgroundColor.withOpacity(0.0),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                ],
               ),
-      ],
-      )
-    ,
+            ),
+          ),
+
+          GestureDetector(
+            onTap: (){
+              setState(() {
+                _categoryFilter = 'any';
+                _typeFilter = 'any';
+                controller.init();
+              });
+            },
+            child: Padding(
+              padding: EdgeInsets.only(left: 16, right: 24),
+              child: Text(
+                "Filtros",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
+
+  Widget buildFilter(String filterName, Color color){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12),
+      margin: EdgeInsets.only(right: 12),
+      decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.all(
+            Radius.circular(5),
+          ),
+          border: Border.all(
+            color: Colors.grey[300],
+            width: 1,
+          )
+      ),
+      child: Center(
+        child: Text(
+          filterName,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }
