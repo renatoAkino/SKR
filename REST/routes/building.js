@@ -6,16 +6,6 @@ const mysql = require('../mysql').pool;
 
 
 router.get('/', (req, res, next) => {
-    /*const building = {
-        id_building : req.body.id_building,
-        name_building : req.body.name_building
-    }
-
-    res.status(200).send({
-        mensagem: 'Teste buildings',
-        bulding: building
-    })*/
-
     getBuildings().then(function(buildings){
         res.status(200).send(buildings)
     })
@@ -24,8 +14,13 @@ router.get('/', (req, res, next) => {
 
 
 router.post('/', (req, res, next) => {
-    res.status(201).send({
-        mensagem: 'Teste buildings post'
+
+    const filter = {
+        category: req.body.category ? req.body.category : null,
+        type: req.body.type ? req.body.type : null,
+    }
+    filterBuildings(filter).then(function(building){
+        res.status(200).send(building)
     })
 });
 
@@ -74,4 +69,30 @@ function getImage(idBuilding){
     })
 }
 
+function filterBuildings(filter){
+    sql = 'SELECT * FROM buildings WHERE ';
+    if(filter.category != "any"){
+        sql = sql + "categoryBuilding = '"+ filter.category +"' AND ";
+    }
+    if(filter.type != "any"){
+        sql = sql + "typeBuilding = '"+ filter.type +"'";
+    }else{
+        sql = sql + "1 = 1";
+    }
+    console.log(sql);
+    return new Promise(function(resolve, reject){        
+        mysql.getConnection((err, connection) => {
+            if(err) throw err
+            connection.query(sql,
+             (error, result, fields) => {
+                connection.release()    
+                if(!error){
+                    resolve(result)                    
+                }
+                
+            })
+    
+        })
+    })
+}
 module.exports = router

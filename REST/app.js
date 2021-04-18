@@ -11,10 +11,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.use('/building', buildingRoute);    
-app.use('/teste',(req, res, next) => {
-    res.status(200).send({
-        mensagem: 'Teste'
-    })
-});
+
 
 module.exports = app;
