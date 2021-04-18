@@ -1,4 +1,5 @@
 import 'package:appskr/controller/home_controller.dart';
+import 'package:appskr/models/building_model.dart';
 import 'package:appskr/pages/building/building_detail_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -70,10 +71,48 @@ class _HomePageState extends State<HomePage> {
       padding: EdgeInsets.all(10),
       child:  Column(
         children: [
-          filterBarWidget(),
+          filterBarWidget(), //Widget com os filtros
 
+          Padding(
+            padding: EdgeInsets.only(right: 24, left: 24, top: 5, bottom: 16),
+            child: Row(
+              children: [
+                Text(
+                  controller.buildings.length.toString(),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                SizedBox(
+                  width: 8,
+                ),
+
+                Text(
+                  "Resultados encontrados",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+
+              ],
+            ),
+          ), //Numero de Resultados encontrados
 
           Expanded(
+              child: ListView(
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                children: controller.buildings.map((build){
+                  return Hero(
+                    tag: build.images[0]["urlImage"],
+                    child: buildCard(build),
+                  );
+                }).toList(),
+              )
+          )
+          /*Expanded(
             child: StaggeredGridView.countBuilder(
               shrinkWrap: true,
               crossAxisCount: 2,
@@ -101,7 +140,7 @@ class _HomePageState extends State<HomePage> {
               },
               mainAxisSpacing: 4.0,
               crossAxisSpacing: 4.0,
-          ),)
+          ),)*/
 
     ]  ),
 
@@ -316,5 +355,152 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Widget buildCard(BuildingModel build) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context){
+              return(BuildingDetailPage(build));
+            })
+        );
+      },
+      child: Card(
+        margin: EdgeInsets.only(bottom: 24),
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(15),
+          ),
+        ),
+        child: Container(
+          height: 210,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(build.images[0]['urlImage']),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.transparent,
+                  Colors.black.withOpacity(0.7),
+                ],
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Container(),
+                ),
+
+                Column(
+                  children: [
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+
+                        Text(
+                          build.titleBuilding,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        Text(
+                          swtichFilter(build.typeBuilding),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                      ],
+                    ),
+
+                    SizedBox(
+                      height: 4,
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+
+                        Row(
+                          children: [
+
+                            Icon(
+                              Icons.location_on,
+                              color: Colors.white,
+                              size: 14,
+                            ),
+
+                            SizedBox(
+                              width: 4,
+                            ),
+
+                            Text(
+                              build.adrressBuilding,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
+
+                            SizedBox(
+                              width: 8,
+                            ),
+
+
+                          ],
+                        ),
+
+                        Row(
+                          children: [
+
+
+                            Text(
+                              swtichFilter(build.categoryBuilding),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
+
+                          ],
+                        ),
+
+                      ],
+                    ),
+                  ],
+                ),
+
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  String swtichFilter(String filter){
+    switch(filter){
+      case 'residential': return 'Residencial';
+      case 'commercial': return 'Comercial';
+      case 'conclude': return 'Entregue';
+      case 'realise': return 'Lançamentos';
+
+    }
   }
 }

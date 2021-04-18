@@ -21,7 +21,6 @@ class BuildingRepository{
     }catch(error){
       return null;
     }
-
   }
 
   static Future<String> getImage(String idBuilding) async{
@@ -36,7 +35,6 @@ class BuildingRepository{
   }
 
   static Future<List<BuildingModel>> filterBuildings(String category, String type) async{
-    print('teste');
     final buildings = <BuildingModel>[];
     try{
       var url = Uri.http(_basicUrl, 'building');
@@ -44,10 +42,8 @@ class BuildingRepository{
         "category": category,
         "type": type
       });
-      print(response.body);
       var json = jsonDecode(response.body);
       for(var building in json){
-        //print(building['typeBuilding'] +"  "+building['titleBuilding']+"  "+ building['categoryBuilding']);
         buildings.add(BuildingModel.fromJson(building));
       }
       return buildings;

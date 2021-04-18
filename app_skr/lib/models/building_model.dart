@@ -9,6 +9,7 @@ class BuildingModel {
   String lATbuilding;
   String lONGbuilding;
   List<dynamic> images;
+  String adrressBuilding;
 
   BuildingModel(
       {this.idBuilding,
