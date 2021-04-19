@@ -119,16 +119,16 @@ lib/
 Uma breve explicação sobre cada uma delas:
 
 ```
-controller:
-	Os arquivos contidos aqui são responsáveis pelo gerenciamento e comunicação entre as pages e o repository; 
-models
-	Aqui estão os modelos abstratos (classes) que representarão os objetos recebidos;
-pages
-	Contém as telas e widgets, em resumo toda UI;
-repository
-	Responsável pelos métodos de comunicação http com o servidor;
+controller/
+    Os arquivos contidos aqui são responsáveis pelo gerenciamento e comunicação entre as pages e o repository; 
+models/
+    Aqui estão os modelos abstratos (classes) que representarão os objetos recebidos;
+pages/
+    Contém as telas e widgets, em resumo toda UI;
+repository/
+    Responsável pelos métodos de comunicação http com o servidor;
 main.dart 
-	Arquivo principal da aplicação;
+    Arquivo principal da aplicação;
 ```
 
 ## Telas:
