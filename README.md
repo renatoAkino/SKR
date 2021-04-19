@@ -132,6 +132,15 @@ main.dart
     Arquivo principal da aplicação;
 ```
 
+Arquivos importantes:
+
+```
+controller/home_controller.dart
+    Gerencia o estado da página inicial, além de inicializar os dados e controla e armazena as requisições  
+repository/building_repository.dart
+    Arquivo onde são feitas todas as reuisições http para a api
+```
+
 ## Telas:
 
 <table>
