@@ -140,13 +140,13 @@ class _BuildingDetailPageState extends State<BuildingDetailPage> {
                                         height: 75,
                                         width: 75,
                                         decoration: BoxDecoration(
-                                          color: Theme.of(context).primaryColor.withOpacity(0.1),
+                                          color: Theme.of(context).primaryColor,
                                           shape: BoxShape.circle,
                                         ),
                                         child: Center(
                                           child: Icon(
                                             Icons.location_on_outlined,
-                                            color: Theme.of(context).primaryColor,
+                                            color: Colors.white,
                                             size: 28,
                                           ),
                                         ),
@@ -160,13 +160,13 @@ class _BuildingDetailPageState extends State<BuildingDetailPage> {
                                       height: 75,
                                       width: 75,
                                       decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor.withOpacity(0.1),
+                                        color: Theme.of(context).primaryColor,
                                         shape: BoxShape.circle,
                                       ),
                                       child: Center(
                                         child: Icon(
                                           Icons.photo,
-                                          color: Theme.of(context).primaryColor,
+                                          color: Colors.white,
                                           size: 28,
                                         ),
                                       ),

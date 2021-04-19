@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:appskr/models/building_model.dart';
-import 'package:appskr/repository/BuildingRepository.dart';
+import 'package:appskr/repository/building_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 
