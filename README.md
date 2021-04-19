@@ -54,6 +54,7 @@ npm install
 node server.js
 ```
 
+É necessário configurar o acesso ao banco de dados (usuário, senha e IP da máquina que está sendo usada) no no arquivo mysql.js dentro do diretório server.
 O projeto deve rodar em: [http://localhost:3000](http://localhost:3000) 
 
 **Passo 4:**
