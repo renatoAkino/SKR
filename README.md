@@ -54,6 +54,7 @@ npm install
 node server.js
 ```
 
+É necessário configurar o acesso ao banco de dados (usuário, senha e IP da máquina que está sendo usada) no no arquivo mysql.js dentro do diretório server.
 O projeto deve rodar em: [http://localhost:3000](http://localhost:3000) 
 
 **Passo 4:**
@@ -119,16 +120,25 @@ lib/
 Uma breve explicação sobre cada uma delas:
 
 ```
-controller:
-	Os arquivos contidos aqui são responsáveis pelo gerenciamento e comunicação entre as pages e o repository; 
-models
-	Aqui estão os modelos abstratos (classes) que representarão os objetos recebidos;
-pages
-	Contém as telas e widgets, em resumo toda UI;
-repository
-	Responsável pelos métodos de comunicação http com o servidor;
+controller/
+    Os arquivos contidos aqui são responsáveis pelo gerenciamento e comunicação entre as pages e o repository; 
+models/
+    Aqui estão os modelos abstratos (classes) que representarão os objetos recebidos;
+pages/
+    Contém as telas e widgets, em resumo toda UI;
+repository/
+    Responsável pelos métodos de comunicação http com o servidor;
 main.dart 
-	Arquivo principal da aplicação;
+    Arquivo principal da aplicação;
+```
+
+Arquivos importantes:
+
+```
+controller/home_controller.dart
+    Gerencia o estado da página inicial, além de inicializar os dados e controla e armazena as requisições  
+repository/building_repository.dart
+    Arquivo onde são feitas todas as requisições http para a api
 ```
 
 ## Telas:
