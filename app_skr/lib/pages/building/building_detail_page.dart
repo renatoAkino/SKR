@@ -77,11 +77,16 @@ class _BuildingDetailPageState extends State<BuildingDetailPage> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  widget.buildingModel.titleBuilding,
-                                  style: TextStyle(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.bold
+
+                                Container(
+                                  width: size.width * 0.6,
+                                  child: Text(
+                                    widget.buildingModel.titleBuilding,
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.bold
+                                    ),
                                   ),
                                 ),
                                 Row(
